@@ -26,6 +26,7 @@ The Application is a single-page web application and all activities are asynchro
 	- Open Database folder.
 	- Run the **Script.sql** using 'sa' login.
 	The script creates a new database 'LocusnineDB', a new login 'locuser' (password:locusnine) and a table 'tblUsers'.
+	> **Please Note** : Edit the Filename in the script file according to the SQL Version and Instance Name for the mdf and ldf files.
 	
 		OR
 		Restore the **Locusnine.bak** file.
