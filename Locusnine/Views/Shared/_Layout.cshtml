@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-route.min.js"></script>
+    <script src="~/Scripts/angular/locusApp.js"></script>
+    <script src="~/Scripts/angular/userFactory.js"></script>
+    <script src="~/Scripts/angular/userController.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style="background-color:#404443;">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img src="../Resources/Logo.svg" height="30px">
+                </a>
+                
+                <a style="margin-left:2em;margin-right:1em;margin-top:7px;" class="navbar-brand" href="#">
+                    <img src="../Resources/ico_dashboard.svg" width="20px" height="20px" alt="">
+                    <span style="vertical-align:middle;margin-left:10px;color:#FFFFFF;">Dashboard</span>
+                </a>
+                
+                <a style="margin-left:1em;margin-right:1em;margin-top:7px;" class="navbar-brand" href="#">
+                    <img src="../Resources/ico_users_nav.svg" width="23px" height="23px"  alt="">
+                    <span style="vertical-align:middle;margin-left:10px;color:#FAB043;">Users</span>
+                </a>
+
+                <a style="margin-left:1em;margin-top:7px;" class="navbar-brand" href="#">
+                    <img src="../Resources/ico_sessionmanager.svg"  width="20px" height="20px" alt="">
+                    <span style="vertical-align:middle;margin-left:10px;color:#FFFFFF;">Session Manager</span>
+                </a>
+            </div>
+            <div class="navbar-right">
+                    <a style="margin-left:1em;margin-top:7px;" class="navbar-brand" href="#">
+                        <img src="../Resources/ico_notification.svg" width="20px" height="20px" alt="">
+                    </a>
+
+                    <a style="margin-left:5px;margin-right:5px;margin-top:7px;" class="navbar-brand" href="#">
+                        <img src="../Resources/ico_user.svg" width="23px" height="23px" alt="">
+                        <span style="vertical-align:middle;margin-left:5px;color:#FFFFFF;">John Smith</span>
+                    </a>
+
+                    <a style="margin-left:5px;margin-top:7px;" class="navbar-brand" href="#">
+                        <img src="../Resources/ico_downarrow.svg" width="15px" height="15px" alt="">
+                    </a>
+            </div>
+        </div>
+    </div>
+    <div ng-app="locusApp" ng-cloak ng-controller="userController" class="container body-content" style="background-color:white;border-top:20px solid #404443;margin-top:10px;">        
+        @RenderBody()
+        <hr />
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

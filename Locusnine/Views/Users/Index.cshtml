@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<script>
+    $(document).ready(function () {
+        function alignModal() {
+            var modalDialog = $(this).find(".modal-dialog");
+            /* Applying the top margin on modal dialog to align it vertically center */
+            modalDialog.css("margin-top", Math.max(0, ($(window).height() - modalDialog.height()) / 2));
+        }
+        // Align modal when it is displayed
+        $(".modal").on("shown.bs.modal", alignModal);
+
+        // Align modal when user resize the window
+        $(window).on("resize", function () {
+            $(".modal:visible").each(alignModal);
+        });    
+    });
+</script>
+
+<div>
+    <br/>
+    <div>
+        <span class="col-md-4" style="font-size:large">
+            <img src="../Resources/ico_users.svg" />
+            Users
+        </span>
+        <input class="col-md-offset-2 col-md-4 form-control" type="text" 
+               placeholder="Search" ng-model="searchUser"
+               style="padding-right:1%;
+                    background: url('../Resources/ico_search.svg') no-repeat right;
+                    background-origin:content-box;" />
+        <button type="button" class="col-md-offset-1 col-md-1 btn btn-warning" data-toggle="modal" data-target="#modalPopup" ng-click="modalClick('Add User', '')">
+            <img src="../Resources/ico_add.svg" /> Add user
+        </button>
+    </div>
+    <br/><br/>
+    <table style="margin-top:20px;" class="table">
+        <thead>
+            <tr>
+                @*<th>ID</th>*@
+                <th ng-click="sortUserList('name')">Name&nbsp;&nbsp;<img ng-src="{{ sortImgSrc }}"></th>
+                <th>Email</th>
+                <th>Role Type</th>
+                @*<th>Mobile No.</th>*@
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in userList | orderBy:sortColumn:reverseSort | filter : searchUser">
+                @*<td>{{ user.id }}</td>*@
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roleType }}</td>
+                @*<td>{{ user.mobileNumber }}</td>*@
+                <td><img ng-src="{{getStatusIcon(user.status)}}" /> &nbsp; {{ getStatus(user.status) }}</td>
+                <td>
+                    <img src="../Resources/ico_edit.svg" data-toggle="modal" data-target="#modalPopup" ng-click="modalClick('Edit User', user)" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalPopup" tabindex="-1" role="dialog" aria-labelledby="modalPopupLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img src="../Resources/ico_close.svg" width="15px" height="15px" style="float:right;" data-dismiss="modal" />
+                    <form name="userForm">
+                        <div class="container text-center">
+                            <div class="form-group row" style="margin-top:1em;">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-3">
+                                    <span class="modal-title" style="font-size:x-large;" id="modalPopupLabel">{{ modalJob }} </span>
+                                </div>
+                                <div class="col-sm-6"></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" style="float:inherit" placeholder="Name" ng-model="modalUser.name" />
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="Email" ng-model="modalUser.email" />
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="roleType" value="Admin" ng-model="modalUser.roleType">
+                                        Admin
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="roleType" value="Customer Executive" ng-model="modalUser.roleType">
+                                        Customer Executive
+                                    </label>                                    
+                                </div>
+                                <div class="col-sm-3"></div>                                
+                            </div><br/>
+                            <div class="form-group row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6">
+                                    <input type="number" class="form-control" placeholder="Mobile Number (Optional)"                                            
+                                           title="10-digit Mobile Number" ng-model="modalUser.mobileNumber" />
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-danger" ng-show="deleteFlag" ng-click="deleteOperation()">DELETE USER</button>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-warning" ng-click="modalOperation()">{{ modalJob.toUpperCase() }}</button>
+                                </div>
+                                <div class="col-sm-3"></div>
+                            </div>
+                            <div>
+                                <span ng-show="validationFlag" style="color:red"> {{ validationMsg }} </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
